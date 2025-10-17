@@ -5,3 +5,4 @@ __pycache__/
 .env
 youtube-oauth2.json
 client_secret.json
+temp-audio.m4a
