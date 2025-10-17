@@ -1,6 +1,6 @@
 # Blind Test Video Generator 🎵
 
-A Python application that creates vertical format (TikTok-style) blind test videos using random music from the iTunes API.
+A Python application that creates vertical format (TikTok-style) blind test videos using random music from the iTunes API and uploads them to YouTube.
 
 ## Features
 
@@ -10,6 +10,7 @@ A Python application that creates vertical format (TikTok-style) blind test vide
 - 📱 Modern, clean video design with animated wave visualizer
 - 🎯 Customizable track count, duration, and styling
 - 🎨 Colorful animated bars that respond to music playback
+- 📤 Optional automatic YouTube upload functionality
 
 ## Requirements
 
@@ -38,23 +39,32 @@ uv sync
 ```
 ## Usage
 
-### Using uv (Recommended)
+Example command to generate a blind test video with 5 tracks and upload it to YouTube:
 ```bash
-uv run blind-test
-
+./blind-test-generator --upload --title "My Blind Test Video" --description "Can you guess the songs?" --num-tracks 5 --outro-duration 1
+```
+Use `--help` to see all available options:
+```bash
+./blind-test-generator --help
 ```
 
 The application will:
-1. Search for 5 random tracks on iTunes
+1. Search for random tracks on iTunes
 2. Download audio previews (few seconds each)
 3. Create a complete blind test video with answers after each track.
 4. Save everything to the `output/` directory
+5. Optionally upload to YouTube if `--upload` is specified
+
+### YouTube Upload
+To enable YouTube uploads, you need to set up OAuth 2.0 credentials and store them in a `client_secrets.json` file in the project root. Follow the instructions in the [YouTube Data API documentation](https://developers.google.com/youtube/v3/getting-started) to create your credentials.
+
 
 ## Output Files
 
 The application creates files in the `output/` directory:
 - `blind_test_video_TIMESTAMP.mp4` - The complete video file
 - `blind_test_audio_TIMESTAMP.wav` - Combined audio file
+
 
 ## Project Structure
 
@@ -65,25 +75,14 @@ blind-test/
 │   ├── itunes_api.py           # iTunes API interface
 │   ├── audio_processor.py      # Audio processing and effects
 │   └── video_generator.py      # Video creation and effects
+|   └── youtube_api.py          # YouTube API interface (if needed for uploads)
 ├── output/                     # Generated videos and audio
 ├── assets/                     # Static assets (fonts, images)
 ├── pyproject.toml             # Project configuration
 └── README.md                  # This file
 ```
-
+   
 ## Customization
-
-You can customize the blind test by modifying the parameters in `src/blind_test_generator.py`:
-
-```python
-def main():
-    num_tracks = 5              # Number of tracks
-    snippet_duration = 15.0     # Length of each snippet (seconds)
-    pause_duration = 3.0        # Pause between tracks (seconds)
-    intro_duration = 3.0        # Intro screen duration (seconds)
-    outro_duration = 10.0       # Outro screen duration (seconds)
-    answer_duration = 4.0       # Answer reveal duration (seconds)
-```
 
 ### Video Customization
 
@@ -103,15 +102,6 @@ Edit the `VideoGenerator` class in `src/video_generator.py` to customize:
 
 ## Development
 
-### Running in Development Mode
-
-```bash
-# Install in development mode
-uv sync
-
-# Run the application
-uv run blind-test
-```
 
 ### Adding New Features
 
@@ -119,6 +109,7 @@ uv run blind-test
 2. **Video Effects**: Edit `src/video_generator.py`
 3. **Music Sources**: Extend `src/itunes_api.py` or add new API integrations
 4. **Main Logic**: Update `src/blind_test_generator.py`
+5. **YouTube Upload**: Modify `src/youtube_api.py`
 
 ## Troubleshooting
 
@@ -143,10 +134,11 @@ uv run blind-test
    - Check available disk space
    - Verify write permissions in output directory
 
-5. **Import errors after changes**:
-   ```bash
-   uv sync  # Refresh the package installation
-   ```
+5. **YouTube upload errors**: 
+   - Ensure `client_secrets.json` is correctly set up
+   - Check OAuth 2.0 credentials and scopes
+   - Review error messages for specific issues
+
 
 ## License
 
