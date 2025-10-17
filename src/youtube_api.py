@@ -88,7 +88,7 @@ class YouTubeAPI:
                 status, response = insert_request.next_chunk()
                 if response is not None:
                     if "id" in response:
-                        print("The video was successfully uploaded.")
+                        print(f"The video was successfully uploaded at https://youtu.be/{response['id']}")
                     else:
                         print(
                             f"The upload failed with an unexpected response: {response}"
