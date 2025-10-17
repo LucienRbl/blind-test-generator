@@ -2,3 +2,6 @@ output/
 .vscode/
 __pycache__/
 .venv/
+.env
+youtube-oauth2.json
+client_secret.json
