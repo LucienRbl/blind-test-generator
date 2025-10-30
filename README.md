@@ -22,16 +22,9 @@ A Python application that creates vertical format (TikTok-style) blind test vide
 
 ### Using uv (Recommended)
 
-1. Install uv if you haven't already:
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
+1. Install uv if you haven't already
 
-2. Clone the repository:
-```bash
-git clone <your-repo-url>
-cd blind-test
-```
+2. Clone the repository
 
 3. Install dependencies and setup the project:
 ```bash
